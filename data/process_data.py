@@ -36,7 +36,7 @@ def save_data(df, database_filename):
     :param database_filename: path of the database file
     """
     engine = create_engine(f'sqlite:///{database_filename}')
-    df.to_sql('messages', engine, index=False)  
+    df.to_sql('messages', engine, index=False, if_exists='replace')  
 
 
 def main():
