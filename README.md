@@ -7,9 +7,16 @@
 </div>
 
 
+Disaster's messages are very important in real-time and can help decision-makers 
+to quickly act and help people in need. The current notebook provides webapp toolkit 
+can be used for this purpose. It classifies the messages from social media in order to
+be able to satisfy the invoked needs. To build the model, two pipelines were used. 
+The first is an ETL pipeline that cleans the data and stores it in a db. The second is a ML 
+pipeline that trains the classifier. 
+
+
 ## Table of contents
 
-- [Description](#description)
 - [Requirements](#requirements)
 - [Instructions](#instructions)
 - [Results](#results)
@@ -17,14 +24,7 @@
 - [Copyright and license](#copyright-and-license)
 
 
-## Description
 
-Disaster's messages are very important in real-time and can help decision-makers 
-to quickly act and help people in need. The current notebook provides webapp toolkit 
-can be used for this purpose. It classifies the messages from social media in order to
-be able to satisfy the invoked needs. To build the model, two pipelines were used. 
-The first is an ETL pipeline that cleans the data and stores it in a db. The second is a ML 
-pipeline that trains the classifier. 
 
 ## Requirements
 The following packages are required to run the code:
