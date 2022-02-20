@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Disaster Response Project</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+   <style>
+     :root {
+	--main-bg-color: #f0f0f0;
+	--item-hover-bg: #8e44ad;
+	--item-hover-color: #fff;
+	--item-bg-color: #fff;
+	--box-header-bg: #9b59b6;
+	--box-header-color: #fff;
+}
+     .box {
+	width: 300px;
+	position: absolute;
+/* 	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);*/
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+							0 10px 10px rgba(0,0,0,0.22);
+}
+
+.box-header {
+	padding: 10px 50px;
+	justify-content: center;
+	align-items: center;
+	background: var(--box-header-bg);
+	color: var(--box-header-color);
+}
+
+.list {
+	padding: unset;
+	margin: 0;
+	width: 100%;	
+}
+
+.item {
+	list-style: none;
+	padding: 15px 40px;
+	box-shadow: 0 5px 25px rgba(0,0,0,.1);
+	background: var(--item-bg-color);
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.item_hover {
+	transform: scale(1.1);
+	z-index: 100;
+	background: var(--item-hover-bg);
+	color: var(--item-hover-color);
+}
+
+.item i {
+	color: var(--item-hover-bg);
+}
+
+.item_hover i {
+	color: var(--item-hover-color);
+}
+
+.right-icon {
+	position: absolute;
+	right: 13px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.left-icon {
+	position: absolute;
+	left: 13px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+  </style>
+  
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container" >
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Disaster Response Project</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav" style="float:right">
+                
+                <li><a href="https://github.com/bhafsa">
+                  <i class="fa fa-github" style="font-size:24px;color:white"></i>
+                  </a></li>
+               <li><a href="https://bhafsa.github.io/">
+                  <i class="fa fa-user" aria-hidden="true" style="font-size:24px;color:white"></i>
+
+                  </a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="jumbotron" style='margin-bottom:0px; padding-bottom:0px'>
+    <div class="container">
+        <h1 class="text-center">Disaster Response Project</h1>
+        <p class="text-center">Analyzing message data for disaster response</p>
+        <hr />
+      
+        <div class="row">
+            <div class="col-lg-12 form-group-lg">
+                <form action="/go" method="get">
+                  	<div class="col-lg-9">
+                    <input type="text" class="form-control form-control-lg" name="query" placeholder="Enter a message to classify">
+                      </div>
+                    <div class="col-lg-3">
+                        <button type="submit" class="btn btn-lg btn-success">Classify Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% block message %}
+        {% endblock %}
+    </div>
+</div>
+
+<div class="container">
+    {% block content %}
+          
+    {% endblock %}
+
+    {% for id in ids %}
+        <div id="{{id}}"></div>
+    {% endfor %}
+</div>
+
+<script type="text/javascript">
+    const graphs = {{graphJSON | safe}};
+    const ids = {{ids | safe}};
+    for(let i in graphs) {
+        Plotly.plot(ids[i], graphs[i].data, graphs[i].layout);
+    }
+</script>
+
+</body>
+</html>
