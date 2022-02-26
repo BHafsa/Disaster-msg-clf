@@ -24,6 +24,7 @@ def clean_data(df):
     columns = [w[:-2] for w in df['categories'][0].split(';')]
     categories = df['categories'].str.split(';', expand=True).transform(lambda x:[w[-1] for w in x])
     categories.columns = columns
+    categories = categories.astype(int).astype(bool)*1
     df.drop(['categories'], axis=1, inplace=True)
     df = pd.concat([df,categories], axis=1)
     return df
